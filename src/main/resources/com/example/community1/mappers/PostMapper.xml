@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.community1.mappers.PostMapper">
+    <insert id="insertPost">
+        INSERT INTO post_tb(user_uid, title, content, categories_uid)
+        VALUE( #{userUid}, #{title},#{content}, #{categoriesUid})
+    </insert>
+
+    <select id="selectPosts">
+        SELECT post_tb.uid, title, likes, viewer,user_tb.nickname, post_tb.created_at as createdAt
+        from post_tb
+        INNER JOIN user_tb
+        ON post_tb.user_uid = user_tb.uid
+        where categories_uid=#{categoriesUid}
+    </select>
+    <select id="myPosts">
+        SELECT post_tb.uid, title, likes, viewer,user_tb.nickname, post_tb.created_at as createdAt
+        from post_tb
+        INNER JOIN user_tb
+        ON post_tb.user_uid = user_tb.uid
+        where user_uid=#{userUid}
+    </select>
+
+    <select id="detailMypost">
+        SELECT title, categories_tb.categories_name as categoriesName, post_tb.created_at as created_At,user_tb.nickname, likes, viewer, content
+        from post_tb
+        INNER JOIN user_tb on post_tb.user_uid=user_tb.uid
+        INNER JOIN categories_tb on post_tb.categories_uid = categories_tb.uid
+        where post_tb.uid=#{postUid}
+    </select>
+    <update id="updatePost">
+        UPDATE post_tb SET title = #{title}, content = #{content}
+        WHERE post_tb.uid=#{uid} and user_uid = #{userUid}
+    </update>
+
+
+
+</mapper>

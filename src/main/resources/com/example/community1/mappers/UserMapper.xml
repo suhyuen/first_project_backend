@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.community1.mappers.UserMapper">
+    <insert id="insertUser">
+        INSERT INTO user_tb(id, pw, user_name, nickname, email, phone_number)
+        VALUES(#{userId}, #{userPw}, #{userName}, #{nickname}, #{email}, #{phonenumber});
+    </insert>
+
+    <select id="findUser" resultType="com.example.community1.models.User">
+        select uid, id as userId, pw as userPw,nickname,user_name as userName,  phone_number as phonenumber, email, created_at as createdAt, auth
+        from user_tb
+        where id = #{userId}
+    </select>
+
+    <select id="information">
+        select id as userId, nickname, user_name as userName, phone_number as phonenumber, email
+        from user_tb
+        where uid=#{uid}
+    </select>
+
+    <select id="userLogin" resultType="com.example.community1.models.User">
+        SELECT uid, id AS userId, pw AS userPw, auth
+        FROM user_tb
+        WHERE id=#{userId}
+    </select>
+
+    <select id="findPassword" resultType="com.example.community1.dtos.UserDto">
+        SELECT *
+        FROM user_tb password
+        WHERE id=#{id} AND  email=#{email} AND phone_number=#{phonenumber}
+    </select>
+
+    <update id="updateUser">
+        UPDATE user_tb SET id=#{userId}, nickname=#{nickname}, email=#{email}, phone_number=#{phonenumber}
+        WHERE user_tb.uid=#{uid}
+
+    </update>
+
+</mapper>
