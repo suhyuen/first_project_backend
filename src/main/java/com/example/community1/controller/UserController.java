@@ -45,4 +45,10 @@ public class UserController {
         int userUid = (Integer)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         userService.updateUser(userDto, userUid);
     }
+
+    @PostMapping("/deleteuser")
+    public void deleteUser(@RequestBody UserDto userDto){
+        int userUid = (Integer)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        userService.deleteUser(userDto, userUid);
+    }
 }

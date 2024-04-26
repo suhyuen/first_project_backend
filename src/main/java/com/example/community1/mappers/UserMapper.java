@@ -17,4 +17,6 @@ public interface UserMapper {
     UserDto findPassword(UserDto userDto);
 
     void updateUser(User user);
+
+    void deleteUser(User user);
 }

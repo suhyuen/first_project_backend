@@ -1,6 +1,7 @@
 package com.example.community1.controller;
 
 import com.example.community1.dtos.PostDto;
+import com.example.community1.models.Post;
 import com.example.community1.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +20,6 @@ public class PostController {
     @PostMapping({"/write"})
     public String write(@RequestBody PostDto postDto) {
         int userUid = (Integer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(userUid);
         this.postService.write(postDto, userUid);
         return "test";
     }
@@ -59,6 +59,11 @@ public class PostController {
         return "test";
     }
 
+    @GetMapping("/")
+    public List<PostDto> homepage(){
+        return this.postService.selectAllPosts();
+    }
+
     @GetMapping({"/hello"})
     public List<PostDto> hello(@RequestParam("categoriesUid") int categoriesUid) {
         return this.postService.posts(categoriesUid);
@@ -95,13 +100,13 @@ public class PostController {
         return this.postService.myposts(userUid);
     }
 
-    @GetMapping({"/detailmypost"})
-    public PostDto detailMypost(@RequestParam("uid") int postUid) {
+    @GetMapping({"/detailpost"})
+    public Post detailpost(@RequestParam("uid") int postUid) {
         return this.postService.detailMypost(postUid);
     }
 
-    @GetMapping({"/detailpost"})
-    public PostDto detailpost(@RequestParam("uid") int postUid) {
+    @GetMapping({"/detailmypost"})
+    public Post detailmypost(@RequestParam("uid") int postUid) {
         return this.postService.detailMypost(postUid);
     }
 
@@ -110,5 +115,12 @@ public class PostController {
         int userUid = (Integer)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         this.postService.updatePost(postDto, userUid);
         return postDto;
+    }
+
+    @PostMapping("/detailpost/{postUid}/deletepost")
+    public String deletePost(@RequestBody PostDto postDto) {
+        int userUid = (Integer)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        postService.deletePost(postDto, userUid);
+        return "test";
     }
 }

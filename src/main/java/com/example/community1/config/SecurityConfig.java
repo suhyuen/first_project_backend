@@ -43,6 +43,7 @@ public class SecurityConfig {
                 .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), LoginAuthenticationFilter.class);
 
         http.authorizeHttpRequests(authz -> authz
+                    .requestMatchers("/").permitAll()
                     .requestMatchers("/signup").permitAll()
                     .requestMatchers("/hello").permitAll()
                     .requestMatchers("/community").permitAll()
@@ -52,6 +53,7 @@ public class SecurityConfig {
                     .requestMatchers("/usedpurchase").permitAll()
                     .requestMatchers("/detailmypost").permitAll()
                     .requestMatchers("/detailpost").permitAll()
+                    .requestMatchers("/detailpost/comments").permitAll()
                     .anyRequest().authenticated());
 
         return http.build();

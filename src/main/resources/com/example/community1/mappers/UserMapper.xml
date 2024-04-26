@@ -23,19 +23,18 @@
     <select id="userLogin" resultType="com.example.community1.models.User">
         SELECT uid, id AS userId, pw AS userPw, auth
         FROM user_tb
-        WHERE id=#{userId}
+        WHERE id=#{userId} and deleteyn ='n'
     </select>
 
-    <select id="findPassword" resultType="com.example.community1.dtos.UserDto">
-        SELECT *
-        FROM user_tb password
-        WHERE id=#{id} AND  email=#{email} AND phone_number=#{phonenumber}
-    </select>
 
     <update id="updateUser">
         UPDATE user_tb SET id=#{userId}, nickname=#{nickname}, email=#{email}, phone_number=#{phonenumber}
         WHERE user_tb.uid=#{uid}
+    </update>
 
+    <update id="deleteUser">
+        update user_tb set deleteyn ='y'
+        where uid=#{uid}
     </update>
 
 </mapper>

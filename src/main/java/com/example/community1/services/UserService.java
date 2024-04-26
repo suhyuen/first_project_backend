@@ -47,5 +47,12 @@ public class UserService {
         User user = User.builder().uid(uid).userId(userDto.getUserId()).nickname(userDto.getNickname()).email(userDto.getEmail()).phonenumber(userDto.getPhonenumber()).build();
         this.userMapper.updateUser(user);
     }
+
+    public void deleteUser(UserDto userDto, int uid){
+        User user = User.builder()
+                .uid(uid)
+                .build();
+        userMapper.deleteUser(user);
+    }
 }
 

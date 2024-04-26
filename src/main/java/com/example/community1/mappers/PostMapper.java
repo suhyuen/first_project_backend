@@ -8,14 +8,19 @@ import java.util.List;
 
 @Mapper
 public interface PostMapper {
-    void insertPost(Post var1);
+    void insertPost(Post post);
 
-    List<PostDto> selectPosts(int var1);
+    List<PostDto> selectAllPosts();
 
-    List<PostDto> myPosts(int var1);
+    List<PostDto> selectPosts(int categoriesUid);
 
-    PostDto detailMypost(int var1);
+    List<PostDto> myPosts(int userUid);
 
-    void updatePost(Post var1);
+    Post detailMypost(int uid);
+
+    void updatePost(Post post);
+
+    void deletePost(Post post);
+
 }
 

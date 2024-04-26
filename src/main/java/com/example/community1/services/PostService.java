@@ -18,14 +18,18 @@ public class PostService {
 
     public void write(PostDto postDto, int userUid) {
         Post post = Post.builder()
-                .categoriesUid(postDto.getCategoriesUid())
+                .categoryUid(postDto.getCategoryUid())
                 .title(postDto.getTitle())
                 .content(postDto.getContent())
-                .likes(postDto.getLikes())
+                .likeCount(postDto.getLikeCount())
                 .viewer(postDto.getViewer())
                 .userUid(userUid)
                 .build();
         this.postMapper.insertPost(post);
+    }
+
+    public List<PostDto> selectAllPosts(){
+        return this.postMapper.selectAllPosts();
     }
 
     public List<PostDto> posts(int categoriesUid) {
@@ -36,13 +40,21 @@ public class PostService {
         return this.postMapper.myPosts(userUid);
     }
 
-    public PostDto detailMypost(int postUid) {
+    public Post detailMypost(int postUid) {
         return this.postMapper.detailMypost(postUid);
     }
 
     public void updatePost(PostDto postDto, int userUid) {
         Post post = Post.builder().title(postDto.getTitle()).content(postDto.getContent()).userUid(userUid).uid(postDto.getUid()).build();
         this.postMapper.updatePost(post);
+    }
+
+    public void deletePost(PostDto postDto, int userUid){
+        Post post = Post.builder()
+                .uid(postDto.getUid())
+                .userUid(userUid)
+                .build();
+        postMapper.deletePost(post);
     }
 }
 

@@ -1,6 +1,9 @@
 package com.example.community1.models;
 
+import com.example.community1.dtos.CategoriesDto;
 import lombok.*;
+
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -10,10 +13,13 @@ import lombok.*;
 @Builder
 public class Post {
     private int uid;
-    public String categoriesUid;
-    public String title;
-    public String content;
-    public int likes;
-    public int viewer;
+    private String title;
+    private String content;
+    private int likeCount;
+    private int viewer;
     private int userUid;
+    private int categoryUid;
+    private String categoryName;
+    private LocalDateTime createdAt;
+    private User user;
 }
